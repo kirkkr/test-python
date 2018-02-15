@@ -28,6 +28,7 @@ node {
 		
 		sh "rm -Rf $package_full"
 		sh "tar -cvf $package_full ."
+		sh "tar -lvf $package_full ."
 	}
 
 	stage('Deploy') {
