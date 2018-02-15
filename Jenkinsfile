@@ -28,7 +28,7 @@ node {
 		echo "Deploying to Artifactory..."
 		withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'artifactory-id',
 			usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-			sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/${JOB_NAME}/${BUILD_NUMBER}/$package_name -T $package_full"
+			sh "curl -u $USERNAME:$PASSWORD -X PUT http://localhost:8081/artifactory/generic-local-dev/${JOB_NAME}/${BUILD_NUMBER}/$package_name -T $package_full"
 		}
 	}
 }
