@@ -22,7 +22,7 @@ node {
 	stage('Package') {
 		echo "Packaging..."
 		package_path="/tmp"
-		package_name="test-python-$build_number.tar.gz"
+		package_name="test-python-${build_number}.tar.gz"
 		package_full="$package_path/$package_name"
 		
 		sh "rm -Rf $package_full"
