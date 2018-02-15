@@ -1,6 +1,6 @@
 node {
 	stage('Checkout') {
-		echo "Checkout latest components from SCM")
+		echo "Checkout latest components from SCM"
 		checkout scm
 	}
 	
