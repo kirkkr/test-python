@@ -15,9 +15,13 @@ node {
 	}
 	
 	stage('Package') {
+		echo "Packaging..."
 		package_path="/tmp"
+		echo "$package_path"
 		package_name="$env.JOB_NAME-$env.BUILD_NUMBER.tar.gz"
+		echo "$package_name"
 		package_full="$package_path/$package_name"
+		echo "$package_full"
 	
 		sh "rm -Rf $package_full"
 		sh "tar -cvf $package_full ."
