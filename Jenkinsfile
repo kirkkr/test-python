@@ -18,7 +18,7 @@ node {
 		echo "Packaging..."
 		package_path="/tmp"
 		echo "$package_path"
-		package_name="$env.JOB_NAME.tar.gz"
+		package_name="$JOB_NAME.tar.gz"
 		echo "$package_name"
 		package_full="$package_path/$package_name"
 		echo "$package_full"
@@ -29,6 +29,6 @@ node {
 
 	stage('Deploy') {
 		echo "Deploying to Artifactory..."
-		sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/$env.JOB_NAME/$env.BUILD_NUMBER/$package_name -T $package_full"
+		sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/$JOB_NAME/$BUILD_NUMBER/$package_name -T $package_full"
 	}
 }
