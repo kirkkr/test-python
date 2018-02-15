@@ -2,7 +2,7 @@ node {
 
 	major="1"
 	minor="0"
-	patch=${BUILD_NUMBER}
+	patch="${BUILD_NUMBER}"
 	build_number="$major.$minor.$patch"
 
 	stage('Checkout') {
