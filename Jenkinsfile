@@ -17,12 +17,9 @@ node {
 	stage('Package') {
 		echo "Packaging..."
 		package_path="/tmp"
-		echo "$package_path"
-		package_name="${JOB_NAME}.tar.gz"
-		echo "$package_name"
+		package_name="test-python-${BUILD_NUMBER}.tar.gz"
 		package_full="$package_path/$package_name"
-		echo "$package_full"
-	
+		
 		sh "rm -Rf $package_full"
 		sh "tar -cvf $package_full ."
 	}
