@@ -2,8 +2,9 @@ node {
 
 	major="1"
 	minor="0"
-	patch="${BUILD_NUMBER}"
-	build_number="$major.$minor.$patch"
+	patch="0"
+	build_number="${BUILD_NUMBER}"
+	build_version="$major.$minor.$patch-$build_number"
 
 	stage('Checkout') {
 		echo "Checkout latest components from SCM"
@@ -22,7 +23,7 @@ node {
 	stage('Package') {
 		echo "Packaging..."
 		package_path="/tmp"
-		package_name="test-python-${build_number}.tar.gz"
+		package_name="test-python-${build_version}.tar.gz"
 		package_full="$package_path/$package_name"
 		
 		sh "rm -Rf $package_full"
@@ -33,7 +34,7 @@ node {
 		echo "Deploying to Artifactory..."
 		withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'artifactory-id',
 			usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-			sh "curl -u $USERNAME:$PASSWORD -X PUT http://localhost:8081/artifactory/generic-local-dev/${JOB_NAME}/$build_number/$package_name -T $package_full"
+			sh "curl -u $USERNAME:$PASSWORD -X PUT http://localhost:8081/artifactory/generic-local-dev/${JOB_NAME}/$build_version/$package_name -T $package_full"
 		}
 	}
 }
