@@ -1,9 +1,5 @@
 node {
 
-	package_path="/tmp"
-	package_name="$env.JOB_NAME-$env.BUILD_NUMBER.tar.gz"
-	package="$package_path/$package_name"
-	
 	stage('Checkout') {
 		echo "Checkout latest components from SCM"
 		checkout scm
@@ -19,6 +15,10 @@ node {
 	}
 	
 	stage('Package') {
+		package_path="/tmp"
+		package_name="$env.JOB_NAME-$env.BUILD_NUMBER.tar.gz"
+		package="$package_path/$package_name"
+	
 		sh "rm -Rf $package"
 		sh "tar -cvf $package ."
 	}
