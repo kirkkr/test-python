@@ -1,8 +1,8 @@
 node {
 
-	PACKAGE_PATH="/tmp"
-	PACKAGE_NAME="$env.JOB_NAME-$env.BUILD_NUMBER.tar.gz"
-	PACKAGE="$PACKAGE_PATH/$PACKAGE_NAME"
+	package_path="/tmp"
+	package_name="$env.JOB_NAME-$env.BUILD_NUMBER.tar.gz"
+	package="$package_path/$package_name"
 	
 	stage('Checkout') {
 		echo "Checkout latest components from SCM"
@@ -19,12 +19,12 @@ node {
 	}
 	
 	stage('Package') {
-		sh "rm -Rf $PACKAGE || true"
-		sh "tar -cvf $PACKAGE ."
+		sh "rm -Rf $package"
+		sh "tar -cvf $package ."
 	}
 
 	stage('Deploy') {
 		echo "Deploying to Artifactory..."
-		sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/$env.JOB_NAME/$env.BUILD_NUMBER/$PACKAGE-NAME -T $PACKAGE"
+		sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/$env.JOB_NAME/$env.BUILD_NUMBER/$package_name -T $package"
 	}
 }
