@@ -17,14 +17,14 @@ node {
 	stage('Package') {
 		package_path="/tmp"
 		package_name="$env.JOB_NAME-$env.BUILD_NUMBER.tar.gz"
-		package="$package_path/$package_name"
+		package_full="$package_path/$package_name"
 	
-		sh "rm -Rf $package"
-		sh "tar -cvf $package ."
+		sh "rm -Rf $package_full"
+		sh "tar -cvf $package_full ."
 	}
 
 	stage('Deploy') {
 		echo "Deploying to Artifactory..."
-		sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/$env.JOB_NAME/$env.BUILD_NUMBER/$package_name -T $package"
+		sh "curl -X PUT http://localhost:8081/artifactory/generic-local-dev/$env.JOB_NAME/$env.BUILD_NUMBER/$package_name -T $package_full"
 	}
 }
