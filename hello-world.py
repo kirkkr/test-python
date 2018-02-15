@@ -1,1 +1,3 @@
-print("Hello World from Python - 2018 !")
+import datetime
+
+print("Hello World from Python - %s !" % datetime.date.today().strftime("%d-%b-%Y"))
